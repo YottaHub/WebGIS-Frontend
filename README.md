@@ -13,12 +13,12 @@
 
 ## 功能特性
 
-- 功能1:基础地图操作，用户可以通过Cesium的控件以及我们实现的绘制功能与网页进行交互
+- 功能1: 基础地图操作，用户可以通过Cesium的控件以及我们实现的绘制功能与网页进行交互
     - 显示京津冀城市群、长江三角洲城市群、长江中下游城市群、成渝城市群和珠江三角洲城市群五个城市群的矢量边界
         ![img1](./images/image1.png)
     - 测量功能如面积测量，点击后，我们会对鼠标的MOUSE_MOVE等事件进行监听，当用户按下右键时，绘制完毕并显示测量结果，并且可以清除
         ![img2](./images/image2.png)
-- 功能2:城市群分析模块，用户可以选择城市群和年份进行城市群的规模、结构和形态分析
+- 功能2: 城市群分析模块，用户可以选择城市群和年份进行城市群的规模、结构和形态分析
     - 所有模块都有“分析”和“显示”按钮，分别用于将参数传至后台进行计算和在右侧弹出面板显示结果
         ![img3](./images/image3.png)
     - 在“形态分析”模块中，用户填入参数后，点击“传回矢量”,后端传回计算好的城市建成区与周长、面积、破碎度、分形维度等参数，前端将数据显示在右侧面板
@@ -31,7 +31,10 @@
 1. 克隆项目代码到本地机器：
 
     ```bash
-    git clone https://github.com/yottahub/WebGIS-Project.git
+    # frontend
+    git clone https://github.com/yottahub/WebGIS-Project
+    # backend
+    git clone https://github.com/yottahub/Vue_Cesium
     ```
 
     项目文件结构（前端）。
@@ -75,23 +78,24 @@
     ```
 
 2. 本地搭建前端服务: 
-    - 进入前端工程文件夹`frontend/vue_cesium`. 
+    - 进入前端工程文件夹`Vue_Cesium`. 
         ```shell
-        cd frontend/vue_cesium
+        cd Vue_Cesium
         ```
     - 通过 `npm` 下载前端库依赖: 
 
-        ```bash
+        ```shell
         npm install
         ```
     - 于[http://localhost:8081](http://localhost:8081).端口运行前端服务
-        ```bash
+        ```shell
         npm run serve
         ```
 3. Backend Setup: 
     - 本项目部分功能采用Java调用python的方式来实现，因此要求本地python安装对应的依赖库，具体操作如下
+        
         ```bash
-        cd backend/webgis_server/src/main/python
+        cd Webgis-Server/src/main/python
         pip install -r requirements.txt
         ```
 
@@ -108,5 +112,4 @@ This project is licensed under the [MIT License](LICENSE)
 
 ## 致谢
 
-- The project utilizes various open-source libraries and frameworks, including Vue.js, Cesium, and Spring Boot. 
-- Special thanks to the contributors and maintainers of these open-source projects for their valuable work.
+The project utilizes various open-source libraries and frameworks, including Vue.js, Cesium, and Spring Boot. Special thanks to the contributors and maintainers of these open-source projects for their valuable work.
