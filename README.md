@@ -1,4 +1,4 @@
-# vue_cesium
+# night_cities
 
 ## Project setup
 ```
