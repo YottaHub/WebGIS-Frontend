@@ -9,7 +9,7 @@
 - 后端框架：Spring Boot
 - 前端框架：Vue
 - 版本控制：Git
-- 构建工具：Maven, npm
+- 构建工具：Maven, Node.js
 
 ## 功能与操作指南
 
