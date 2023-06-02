@@ -27,7 +27,7 @@
             :value="item.value">
         </el-option>
       </el-select>
-      <el-select v-model="value" placeholder="2018年" style="width:150px; " @change="selectedYearChanged">
+      <el-select v-model="value" placeholder="2015年" style="width:150px; " @change="selectedYearChanged">
         <el-option
             v-for="item in yearOptions"
             :key="item.value"
@@ -52,7 +52,7 @@
             :value="item.value">
         </el-option>
       </el-select>
-      <el-select v-model="value" placeholder="2018年" style="width:150px; " @change="selectedYearChanged">
+      <el-select v-model="value" placeholder="2015年" style="width:150px; " @change="selectedYearChanged">
         <el-option
             v-for="item in yearOptions"
             :key="item.value"
@@ -203,18 +203,7 @@ export default {
       }, {
         value: '6',
         label: '2015年'
-      }, {
-        value: '7',
-        label: '2016年'
-      }
-        , {
-          value: '8',
-          label: '2017年'
-        }
-        , {
-          value: '9',
-          label: '2018年'
-        }],
+      }, ],
       selectedCityIndex: '1',
       selectedYearIndex: '3',
       chart1: undefined,
