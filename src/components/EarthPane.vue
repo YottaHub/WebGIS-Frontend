@@ -18,7 +18,7 @@
     </div>
     <div id="SizeAnalyse" v-show="analyzeVisible">
       规模分析
-      <el-select v-model="value" placeholder="京津冀城市群" style="width:150px; margin-top: 30px"
+      <el-select v-model="value" placeholder="长江三角洲" style="width:150px; margin-top: 30px"
                  @change="selectedCityChanged">
         <el-option
             v-for="item in citiesOptions"
@@ -43,7 +43,7 @@
     </div>
     <div id="structAnalyse" v-show="analyzeVisible">
       结构分析
-      <el-select v-model="value" placeholder="京津冀城市群" style="width:150px; margin-top: 30px"
+      <el-select v-model="value" placeholder="长江三角洲" style="width:150px; margin-top: 30px"
                  @change="selectedCityChanged">
         <el-option
             v-for="item in citiesOptions"
@@ -88,7 +88,7 @@
       </div>
       <div class="demo-input-suffix">
         <p style="font-size: 2px">城市群：</p>
-        <el-select v-model="value" placeholder="京津冀城市群" @change="selectedCityChanged">
+        <el-select v-model="value" placeholder="长江三角洲" @change="selectedCityChanged">
           <el-option
               v-for="item in citiesOptions"
               :key="item.value"
@@ -229,6 +229,7 @@ export default {
         fragmentation : '4',
         division : '3'
       },
+      isExtracted:false
     }
   },
   methods: {
@@ -329,6 +330,14 @@ export default {
       axios.post('/loginhh1', this.transportData) // 发送 GET 请求，URL 替换为你的实际接口地址
           .then(resp => {
             console.log(this.transportData);
+            if (resp==null){
+              alert("运行错误，请检查您的python环境");
+              return null;
+            }
+            if (resp.data==null){
+              alert("运行错误，请检查您的python环境");
+              return null;
+            }
             console.log(resp.data.data);
             const names = Object.keys(resp.data.data).map(key => resp.data.data[key].name)
             const values = Object.keys(resp.data.data).map(key => resp.data.data[key].value)
@@ -446,8 +455,12 @@ export default {
     },
     sizeAnalyseShow() {
       this.sizeOutVisible = !this.sizeOutVisible;
+      this.shapeOutVisible = false;
+      this.structOutVisible = false;
     },
     structAnalyseShow() {
+      this.sizeOutVisible = false;
+      this.shapeOutVisible = false;
       this.structOutVisible = !this.structOutVisible;
     },
     analyzeBtnShow() {
@@ -505,6 +518,7 @@ export default {
       })
     },
     getBuildUpArea() {
+      this.isExtracted = true;
       window.viewer = this.viewer;
       const loading = this.$loading({
         lock: true,
@@ -531,6 +545,10 @@ export default {
           })
     },
     showBasicControl() {
+      this.shapeOutVisible = false;
+      this.structOutVisible = false;
+      this.sizeOutVisible = false;
+      console.log(this.viewer.imageryLayers._layers);
       window.viewer = this.viewer;
       if (this.shpLayerVisible==false){
         this.viewer.dataSources.remove(this.viewer.dataSources.get(4));
@@ -644,13 +662,21 @@ export default {
     },
     deleteRecent(){
       console.log(this.bulidUpArea);
+
       this.viewer.dataSources.remove(this.viewer.dataSources.get(this.shpLayerCount));
     },
     morphological(){
+      if (this.isExtracted==false){
+        alert("请先点击“传回矢量”，完成建成区提取");
+        return null;
+      }
+      this.sizeOutVisible = false;
+      this.structOutVisible = false;
       this.shapeOutVisible = !this.shapeOutVisible;
       axios.post('/morphological', this.transportDataThree) // 发送 GET 请求，URL 替换为你的实际接口地址
           .then(resp => {
-            console.log(resp.data)
+            console.log(resp.data);
+            console.log(resp.data.data);
             let strs = resp.data.data.split(':');
             this.morptData.s = strs[0] + '平方公里';
             this.morptData.c = strs[1] + '公里';
